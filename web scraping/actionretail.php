@@ -22,7 +22,7 @@
 	function login() {
    
 	}
-	function clickLink() {
+	function clickLink($xpath = "") {
 	}
 	
 	function postAction(){
