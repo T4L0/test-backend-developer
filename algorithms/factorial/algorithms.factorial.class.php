@@ -1,7 +1,7 @@
-<?php class algorithms {
+<?php class factorial {
 	/*
 	@package: Test-backend-developer.
-	@description: Class in PHP that resolves algorithms.
+	@description: Class in PHP that resolves factorial.
 	@author: Ítalo Araya.
 	*/
 

@@ -1,17 +1,17 @@
-<?php  
-require_once  ('algorithms.to_words.class');
+<?php require_once  ('algorithms.to_words.class.php');
 
-
-$n = $_REQUEST['n'];
+$n = "1999999999";
+// $n = "2147483647";
+// if(isset($_REQUEST['n'])) {
+	// $n = $_REQUEST['n'] ;
+// }
 
 try {
-	$a = new  to_words($n);
+	$tw = new  to_words($n);
 
-	// echo "Número de ceros: " . $a->getFactorialAndZerosStringAndEasyWay(-10); 
-	// echo "\n";
-	// echo "Número de ceros: " . $a->getFactorialAndZeros(-10);
+	echo "En palabras $n es: " . $tw->convert_number_to_words($n); 
 
 } catch (Exception $e) {
-    echo 'Excepción: ',  $e->getMessage(), "\n";
+	echo 'Excepción: ',  $e->getMessage(), "\n";
 }
 ?>

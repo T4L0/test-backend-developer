@@ -1,14 +1,15 @@
 <?php class ScrapingRetail_Task {
-    public function run($arguments)
-    {
-        $actions = ActionRetail::all();
 
-        foreach ( $actions as $action) {
-            if (!$action->doAction()) {
-                Log::error(__FILE__, __LINE__, $arguments);
-            }
-        }
-        echo "End ScrapingRetail $arguments.";
+    public function run($arguments = array())
+    {
+		//$arguments = array('retail' => 'ripley');
+		
+		if(ActionRetail::doAll($arguments)) { //Ejecutar todas los pasos e instrucciones
+			ActionRetail::successful(); //Guardar bandera en caso de éxito
+		} else {
+			ActionRetail::failed();  //Guardar bandera en caso de error
+		}
     }
+	
 }
 ?>

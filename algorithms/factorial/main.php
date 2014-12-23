@@ -1,17 +1,15 @@
-<?php  
-require_once  ('algorithms.factorial.class.php');
+<?php require_once  ('algorithms.factorial.class.php');
+$n = 12;
 
-
-$n = $_REQUEST['n'];
+if(isset($_REQUEST['n'])) {
+	$n = $_REQUEST['n'] ;
+}
 
 try {
-	$a = new  algorithms($n);
-
-	echo "Número de ceros: " . $a->getFactorialAndZerosStringAndEasyWay(-10); 
-	echo "\n";
-	echo "Número de ceros: " . $a->getFactorialAndZeros(-10);
+	$a = new  factorial($n);
+	echo "Factorial de $n! : " . $a->getFactorial($n) , "; cantidad de ceros en $n! : " . $a->getFactorialAndZeros($n);
 
 } catch (Exception $e) {
-    echo 'Excepción: ',  $e->getMessage(), "\n";
+	echo 'Excepción: ',  $e->getMessage(), "\n";
 }
 ?>
