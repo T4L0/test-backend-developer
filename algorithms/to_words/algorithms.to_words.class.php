@@ -6,7 +6,6 @@
 	@base: http://www.karlrixon.co.uk/writing/convert-numbers-to-words-with-php/
 	*/
 	
-	
 	public function checkNumber($number) {
 		if ( (!is_numeric($number)) ) {
 			return false;
@@ -14,29 +13,26 @@
 		
 		$number = (int) $number;
 		
-		if ( !is_int($number)) {	
+		if ( !is_int($number)) {
 			trigger_error('to_words sólo acepta números entre -' . PHP_INT_MAX . ' y ' . PHP_INT_MAX, E_USER_WARNING);
 			return false;
 		}
 		
 		if($number > 1999999999 ) {
-			echo "modulo operation on big numbers, it will cast a float argument to an int and may return wrong results.";
+			trigger_error("modulo operation on big numbers, it will cast a float argument to an int and may return wrong results.");
 			return false;
 		}
 		return true;
 	}
 	
 	public function convert_number_to_words ($number, $plural = false) {
-		// print_r(PHP_INT_MAX); print_R("<br/>");
-		// print_r($number); die();
-		
 		if(!$this->checkNumber($number)) {
 			print_r("No es número");
 			return false;
 		}
 		
 		if ($number < 0) {
-			return $this->negative . $this->convert_number_to_words(abs($number)); 
+			return $this->negative . $this->convert_number_to_words(abs($number));
 		}
 		
 		$string = $fraction = null;
@@ -44,10 +40,7 @@
 			list($number, $fraction) = explode('.', $number);
 		}
 		
-		
-		    
 		switch (true) {
-		
 			case $number < 21:
 				if($plural) {
 					$string = $this->dictionary[$number]['plural'];
@@ -75,10 +68,7 @@
 				$hundreds  = $number / 100;
 				$remainder = $number % 100;
 				$hundreds = ((int)$hundreds) * 100;
-
-				// print_r("hundreds: $hundreds");
-				// print_r("remainder: $remainder");
-
+				
 				if($remainder == 0){
 					$string = $this->dictionary[$hundreds]['singular'];
 					break;
@@ -91,18 +81,12 @@
 			break;
 			
 			case $number < 2000:
-				// print_r("baseUnit: $baseUnit | ");
-				// print_r("numBaseUnits: $numBaseUnits | ");
-				// print_r("remainder: $remainder |");
-				// die();
-				
 				$baseUnit = pow(1000, floor(log($number, 1000)));
 				$numBaseUnits = (int) ($number / $baseUnit);
 				$remainder = $number % $baseUnit;
 				
 				$string = $this->dictionary[$baseUnit]['singular'];
 				if ($remainder) {
-					// $string .= $remainder < 100 ? $this->separator  : $this->conjunction;
 					$string .= $this->separator;
 					$string .= $this->convert_number_to_words($remainder);
 				}
@@ -112,12 +96,6 @@
 				$baseUnit = pow(1000, floor(log($number, 1000)));
 				$numBaseUnits = (int) ($number / $baseUnit);
 				$remainder = $number % $baseUnit;
-				
-				// print_r("number: $number | ");
-				// print_r("baseUnit: $baseUnit | ");
-				// print_r("numBaseUnits: $numBaseUnits | ");
-				// print_r("remainder: $remainder |");
-				// die();
 				
 				if($numBaseUnits > 1) {
 					$string = $this->convert_number_to_words($numBaseUnits, true) . ' ' . $this->dictionary[$baseUnit]['plural'];
@@ -131,7 +109,7 @@
 				}
 				break;
 		}
-
+		
 		if (null !== $fraction && is_numeric($fraction)) {
 			$string .= $this->decimal;
 			$words = array();
@@ -140,10 +118,7 @@
 			}
 			$string .= implode(' ', $words);
 		}
-
 		return $string;
-		
-	
 	}
 	
 	public $conjunction = ' y ';
